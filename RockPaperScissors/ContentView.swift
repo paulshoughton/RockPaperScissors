@@ -55,14 +55,15 @@ struct ContentView: View {
     }
     
     func buttonTapped(number: Int) {
-        if getAnswer() == number {
+        let answer = getAnswer()
+        if answer == number {
             scoreTitle = "Correct. 😀"
             scoreMessage = "You scored 1 point."
             score += 1
         }
         else {
             scoreTitle = "Wrong. 😢"
-            scoreMessage = "The correct answer was \(possibleMoves[getAnswer()])"
+            scoreMessage = "The correct answer was \(possibleMoves[answer])"
         }
         showingScore = true
     }
