@@ -55,47 +55,29 @@ struct ContentView: View {
     }
     
     func buttonTapped(number: Int) {
-        if rightOrWrong(number: number) {
+        if getAnswer() == number {
             scoreTitle = "Correct. 😀"
             scoreMessage = "You scored 1 point."
             score += 1
         }
         else {
             scoreTitle = "Wrong. 😢"
-            scoreMessage = "The correct answer was \(move)"
+            scoreMessage = "The correct answer was \(possibleMoves[getAnswer()])"
         }
         showingScore = true
     }
     
-    func rightOrWrong(number: Int) -> Bool {
-        
+    func getAnswer() -> Int {
         switch move {
-        case 0: //Rock
-            if winOrLose == true && number == 1 { //Paper
-                return true
-            }
-            else if winOrLose == false && number == 2 { //Scissors
-                return true
-            }
-        case 1: //Paper
-            if winOrLose == true && number == 2 { //Scissors
-                return true
-            }
-            else if winOrLose == false && number == 0 { //Rock
-                return true
-            }
-        case 2: //Scissors
+        case 0: //Rock - Win = Paper, Lose = Scissors
+            return winOrLose ? 1 : 2
+        case 1: //Paper - Win = Scissors, Lose = Rock
+            return winOrLose ? 2 : 0
+        case 2: //Scissors - Win = Rock, Lose = Paper
             fallthrough
         default:
-            if winOrLose == true && number == 0 { //Rock
-                return true
-            }
-            else if winOrLose == false && number == 1 { //Paper
-                return true
-            }
+            return winOrLose ? 0 : 1
         }
-        
-        return false
     }
     
     func askQuestion() {
